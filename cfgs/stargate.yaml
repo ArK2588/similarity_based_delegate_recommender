@@ -1,0 +1,26 @@
+name: stargate
+space: stgdao.eth
+limit_to_50k: true
+tau: 10
+vectorized_labels_mapping: 
+    "Yes": 1
+    "No": -1
+    "Abstain": 0
+    "yes": 1
+    "no": -1
+    "abstain": 0
+    "Yes - Make them whole": 1
+    "No - Rug 'em": -1
+    "Abstain - IDK": 0
+    "Approve Update": 1
+    "Decline Update": -1
+    "Yes - Incentivize balancing": 1
+    "No - Leave it alone": -1
+    "Yes - support the amendment": 1
+    "No - do not support amendment": -1
+    "Yes - Incentivize ": 1
+    "No - Do Not Incentivize ": -1
+    "Update Emissions ": 1
+    "No Change": -1
+    "Update Pathways": 1
+    "No Update": -1

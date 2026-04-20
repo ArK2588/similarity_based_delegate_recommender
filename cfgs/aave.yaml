@@ -1,0 +1,29 @@
+name: aave
+space: aavedao.eth
+limit_to_50k: false
+tau: 50
+vectorized_labels_mapping:
+    "Option 1": 1
+    "Option 2": -1
+    "No change": 0
+    "YAE - 80/20 AAVE/wETH": 1
+    "YAE - 80/20 AAVE/wstETH": 2
+    "NAE - Rework Proposal": -1
+    "ABSTAIN": 0
+    "For": 1
+    "Against": -1
+    "Abstain": 0
+    "YAE": 1
+    "NAY": -1
+    "YAE - Chaos Labs (21,000 units)": 21
+    "YAE - Gauntlet (18,000 units)": 18
+    "NAE": -1
+    "Option 1: Add EM Specific Caps": 2
+    "Option 2: No EM Specific Caps": 1
+    "Nay": -1
+    "Option 1 - YAE 19.6M Supply Cap": 196
+    "Option 2 - YAE 29.3M Supply Cap": 293
+    "YAE (Cancel Stream)": 2
+    "Reduce Stream": 1
+    "Option A": 1
+    "Option B": -1

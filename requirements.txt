@@ -1,0 +1,7 @@
+gql[all]
+pandas
+scikit-learn
+numpy
+matplotlib
+pyyaml
+tqdm

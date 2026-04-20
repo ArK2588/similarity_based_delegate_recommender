@@ -1,0 +1,15 @@
+name: uniswap
+space: uniswapgovernance.eth
+limit_to_50k: false
+tau: 25
+vectorized_labels_mapping:
+    "$250k": 1
+    "$500k": 2
+    "$750k": 3
+    "$1m": 4
+    "Abstain": 0
+    "Against": -1
+    "Do not proceed with the proposal": -1
+    "Accept amendment": 1
+    "Reject amendment": -1
+    "For": 1

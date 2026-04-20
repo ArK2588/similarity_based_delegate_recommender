@@ -1,0 +1,17 @@
+name: ens
+space: ens.eth
+limit_to_50k: false
+tau: 20
+vectorized_labels_mapping: 
+    "YES: Budget of $4.8M/y": 48
+    "YES: Budget of $3.6M/y": 36
+    "YES: Budget of $2.4M/y": 24
+    "YES: Budget of $1.2M/y": 12
+    "NO. Reject full proposal": -48
+    "For": 1
+    "Abstain": 0
+    "Against": -1
+    "YES for one year terms": 1
+    "NO for one year terms": -1
+    "YES for changes in comp rules": 1
+    "NO for changes in comp rules": -1
