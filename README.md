@@ -1,21 +1,18 @@
 # Similarity-Based Delegate Recommender
 
-## Overview
-This repository provides the implementation to compare different similiarity metrics as basis for a similarity-based recommender for delegate selection in DAOs, as described in the paper <TODO>. We collect historical voting behavior (votes cast by delegates on proposals) and use it to evaluate different similarity metrics based on their ability to identify delegates with similar voting patterns.
+This repository provides the implementation to compare the performance of various similarity metrics as basis for a similarity-based recommender for delegate selection in DAOs. The code is complementary to the paper "Kaushik, A., Droll, J. (2026). Who Should Represent Me? Similarity-Based Recommender Systems for Vote Delegation in DAOs. IEEE International Conference on Blockchain and Cryptocurrency (ICBC). Brisbane, Australia."
 
-## Method Summary
-The methodology consists of two stages:
+## Overview
+The methodology is described in detail in Section 3 of the above mentioned paper and consists of the following two stages:
 
 1. **Data acquisition and transformation**
-   - Implemented in **`prepare_data.py`**
-   - Fetch proposals and votes for DAO using the Snapshot GraphQL API.
+   - Fetch proposals and votes for a DAO using the [Snapshot GraphQL API](https://docs.snapshot.box/tools/api).
    - Identify balanced proposals (proposals where the winning choice had a voting power share below `0.7`).
    - Build a dense matrix (delegate × proposal; categorical vote label per proposal), obtained by pruning proposals repeatedly from the sparse voting data collected. Later used for evaluation.
-   - Report insights about the collected data.
+   - Report statistics about the collected data.
 
 2. **Recommendation and evaluation**
-   - Implemented in **`perform_evaluation.py`**
-   - For each delegate in the dense matrix, the most similar delegate is identified and recommended using each similiarity metric.
+   - For each delegate in the dense matrix, the most similar delegate is identified and recommended for each similarity metric.
    - The quality of these recommendations is evaluated on the evaluation set (proposals not present in the dense matrix). A further evaluation on only the balanced proposals within the evaluation set is also performed. 
    - The evaluation is carried out using the following evaluation criteria:
      - **Accuracy**: Fraction of shared proposals between two voters from the evaluation set, acting as delegate and delegator, where the delegate’s vote matches the delegator’s vote.
@@ -26,15 +23,15 @@ The methodology consists of two stages:
 
 ## Repository Structure
 - **`prepare_data.py`**
-  - Runs data fetching, transformation and provides insights about the data.
+  - Implements data fetching and transformation, and provides insights about the data.
 - **`perform_evaluation.py`**
-  - Runs delegate recommendation for each similarity metric and provides evaluation results.
+  - Implements delegate recommendation and performance evaluation for each similarity metric.
 - **`utils.py`**
   - Contains helper functions for data fetching, transformation, similarity metrics, and evaluation.
 - **`cfgs/*.yaml`**
-  - DAO-specific configuration (DAO name, Snapshot space id, density threshold `tau`, and vote-label vectorization mapping for cosine similarity).
+  - DAO-specific configurations (DAO name, Snapshot space id, density threshold `tau`, and vote-label vectorization mapping for cosine similarity).
 - **`data/`**
-  - Snapshot data (proposals, votes, and dense matrix).
+  - Snapshot data as well as artifacts (proposals, votes, and dense matrix).
 
 ## Installation
 Python dependencies are listed in `requirements.txt`.
@@ -52,14 +49,14 @@ Experiments for different DAOs are configured via YAML files in `cfgs/`. Each co
 
 - `name`: DAO name (used in input/output filenames)
 - `space`: Snapshot space name (e.g., `uniswapgovernance.eth`)
-- `limit_to_50k`: whether to stop vote fetching after 50k votes (used for high-volume spaces like Stargate DAO)
+- `limit_to_50k`: Whether to stop vote fetching after 50k votes (used for high-volume spaces like Stargate DAO)
 - `tau`: Number of proposals in generated dense matrix
 - `vectorized_labels_mapping`: Mapping from proposal choice strings to numeric values (used for cosine similarity encoding)
 
 ### Data Preparation
 The script `prepare_data.py` requires the path of the configuration file as an argument and supports:
-1. The option to fetch data from Snapshot instead of using locally stored JSON files (eg. from a previous run) using the --fetch_data flag.
-2. The generation of the dense matrix using the --create_dense_matrix flag.
+1. The option to fetch data from Snapshot instead of using locally stored JSON files (eg. from a previous run) using the `--fetch_data` flag.
+2. The generation of the dense matrix using the `--create_dense_matrix` flag.
 3. Providing insights about the existing data.
 
 #### Example usage for Uniswap:
@@ -98,7 +95,7 @@ python perform_evaluation.py --config cfgs/uniswap.yaml --visualize_results
 
 ## Practical Considerations
 - **Network dependence**: Fetching data uses Snapshot’s GraphQL endpoint (`https://hub.snapshot.org/graphql`). Runs may be slow for large spaces, so it is recommended to use cached files after the first fetch.
-- **`tau` sensitivity**: The dense matrix generation depends strongly on `tau`. Larger `tau` results in fewer delegates but more proposals in the dense matrix. The value should be experimentally determined for each DAO to balance delegate count and proposal coverage necessary for meaningful evaluation.
+- **`tau` sensitivity**: The dense matrix generation depends strongly on `tau`. Larger `tau` values result in fewer delegates but more proposals in the dense matrix. The value should be experimentally determined for each DAO to balance delegate count and proposal coverage necessary for meaningful evaluation.
 
 ## Reproducing results from the paper
 To reproduce the results from the paper use the collected data from the Zenodo repository <TODO> and run the evaluation script with the corresponding configuration file.
@@ -106,3 +103,6 @@ Example:
 ```bash
 python perform_evaluation.py --config cfgs/uniswap.yaml
 ```
+
+## License
+MIT License (see `LICENSE`).

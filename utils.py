@@ -680,5 +680,5 @@ def evaluate_similarity_metrics(voting_df, recommendation_dataset, recommended_d
             recall_metrics[metric] = 'N/A'  # No perfect delegate found
     recall_table = pd.DataFrame.from_dict(recall_metrics, orient='index', columns=['perfect_delegate_recall'])
     print("Perfect Delegate Recall")
-    print(recall_table.round(2).to_string())
+    print(recall_table.round(4).to_string())
     print()
